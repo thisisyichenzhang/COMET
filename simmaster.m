@@ -1,5 +1,5 @@
 
-function [X_cell, W_cell, We_cell, We_cell_cor] = simmaster(n, m, d, repprop, X_noise, S_noise, nsim)
+function [We_cell] = simmaster(n, m, d, repprop, X_noise, S_noise, nsim)
 
 %clc;clear all;
 
@@ -81,7 +81,8 @@ W_cell{j} = W;
     MSE_C_cor(j) = sum((S_true-Se_cor).^2 .* ~eye(d),"All")/(d*(d-1)); 
 end
 fname = sprintf('simres_n%d_m%d_d%d_repprop%.1f_Snoise%.1f_Xnoise%d.mat', n, m, d, repprop, S_noise, X_noise);
-save(fname);
+
+save(fname, 'X_cell', 'W_cell', 'We_cell', 'MSE_L','MSE_C','MSE_W','MSE_W_nz', 'MSE_W_nzzscore','We_cell_cor','MSE_L_cor','MSE_C_cor','MSE_W_cor','MSE_W_nz_cor', 'MSE_W_nzzscore_cor','-v7.3');
 end
 
 
