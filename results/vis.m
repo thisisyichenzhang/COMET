@@ -1,5 +1,4 @@
 clc; clear all;
-
 load('myfile_n100_m3000_d100_Snoise0.0_Xnoise10.mat')
 x1 = MSE_C; x1_MSE_L = MSE_L; x1_MSE_W = MSE_W; x1_MSE_W_nz = MSE_W_nz; x1_MSE_W_nzscore = MSE_W_nzzscore;
 load('myfile_n100_m3000_d100_Snoise0.5_Xnoise10.mat')
@@ -54,6 +53,3 @@ xlabel('Noise level (SD) of input matrix K ')
 ylabel('MSE of L')
 title('MSE for L estimate (gene expression matrix) at different noise levels of K')
 savefig("MSE_L");
-
-
-
