@@ -1,13 +1,14 @@
 % Function
-function W = estW(X,S,Wo)
-    K = 5; % Number of optimization iterations
-    [n,m] = size(X);
+function [W,criterion] = estW(X,S,Wo)
+    K = 1; % Number of optimization iterations
+%    [n,m] = size(X);
     d = size(S,1);
 %   W = rand(m,d);
 %   W = randn(m,d);
 %   W = Wo+randn(m,d);
 %   W = double(Wo~=0);
-    W = double(Wo>0.25);
+%   W = double(Wo>0.25);
+    W = Wo;    
     L=X*W;
     for k=1:K
         for i=1:d
@@ -19,4 +20,5 @@ function W = estW(X,S,Wo)
             L=X*W;
         end
     end
+    criterion=mean(diag(transpose(W)*corr(X)*W)); 
 end
