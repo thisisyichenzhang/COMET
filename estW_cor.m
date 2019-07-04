@@ -7,8 +7,8 @@ function W = estW_cor(X,S,Wo)
 % Initilization of W.    
 %   W = randn(m,d);
 %   W = Wo+randn(m,d);
-   W = double(Wo~=0);
-%   W = double(Wo>0.25);
+%   W = double(Wo~=0);
+   W = double(Wo>0.25);
     L=X*W;
     for k=1:K
         for i=1:d
