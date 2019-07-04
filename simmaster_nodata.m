@@ -77,7 +77,7 @@ for j = 1:nsim
     end
 disp('Finish running algorithm');    
 fname = sprintf('results/simres_all_n%d_m%d_d%d_repprop%.1f_Snoise%.1f_Xnoise%d_nsim%d.mat', n, m, d, repprop, S_noise, X_noise,nsim);
-%'X_cell', 'W_cell', 'We_cell', 'MSE_L','MSE_C','MSE_W','MSE_W_nz', 'MSE_W_nzzscore','-v7.3'
-save(fname);
+%
+save(fname,'X_cell', 'W_cell', 'We_cell', 'MSE_L','MSE_C','MSE_W','MSE_W_nz', 'MSE_W_nzzscore','We_cell_cor', 'MSE_L_cor','MSE_C_cor','MSE_W_cor','MSE_W_nz_cor', 'MSE_W_nzzscore_cor','-v7.3');
 disp('Success, Results saved!');
 end

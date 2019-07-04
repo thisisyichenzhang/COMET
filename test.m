@@ -2,9 +2,9 @@ clear all; clc;
 % Test Case: 
 
 % Data generation
-n = 1000;
-m = 100;
-d = 20;
+n = 100;
+m = 300;
+d = 50;
 b = m/d;
 X = zeros(n,m);
 W = zeros(m,d);
