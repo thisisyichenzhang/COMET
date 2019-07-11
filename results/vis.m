@@ -1,4 +1,5 @@
 clc; clear all;
+load('cv/new/simres_all_n500_m200_d20_repprop0.50_Lnoise0.00_Xnoise0.00_Wnoise0.2_nsim100_seed123.mat')
 load('myfile_n100_m3000_d100_Snoise0.0_Xnoise10.mat')
 x1 = MSE_C; x1_MSE_L = MSE_L; x1_MSE_W = MSE_W; x1_MSE_W_nz = MSE_W_nz; x1_MSE_W_nzscore = MSE_W_nzzscore;
 load('myfile_n100_m3000_d100_Snoise0.5_Xnoise10.mat')
