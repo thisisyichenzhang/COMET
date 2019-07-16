@@ -29,7 +29,8 @@ function cvsim(n,m,d,repprop,L_noise,X_noise,W_noise,nsim,nfolds,seed)
         % change W_init here
         %   W_init = rand(m,d);
         %   W_init = W+randn(m,d);
-        W_init = double((W + rand(m,d)>(1-W_noise))~=0);
+        % !!!WORONG!!! !!LACK BRACKET!! : W_init = double(W + (rand(m,d)>(1-W_noise))~=0);
+        W_init = double((W + (rand(m,d)>(1-W_noise)))~=0);
         %   W_init = double(W~=0);
         %   W_init = double(W>0.25);
 
@@ -77,7 +78,7 @@ function cvsim(n,m,d,repprop,L_noise,X_noise,W_noise,nsim,nfolds,seed)
     disp('Results saved.');
     end
 
-    fname = sprintf('results/cv/simres_all_n%d_m%d_d%d_repprop%.2f_Lnoise%.2f_Xnoise%0.2f_Wnoise%0.1f_nsim%d_seed%d.mat', n, m, d, repprop, L_noise, X_noise, W_noise, nsim, seed);
+    fname = sprintf('results/cv/simres_all_n%d_m%d_d%d_repprop%.2f_Lnoise%.2f_Xnoise%0.2f_Wnoise%0.2f_nsim%d_seed%d.mat', n, m, d, repprop, L_noise, X_noise, W_noise, nsim, seed);
     save(fname,'X_bysim','X_input_bysim','W_bysim','W_init_bysim','Wl_bysim','Wl_cv_bysim','best_alpha_bysim','criterion_cv_onfulldata_bysim','criterion_old_onfulldata_bysim','alphas','nfolds','-v7.3');
     disp('Success, All Results saved!');
 
