@@ -1,4 +1,4 @@
-function estW_pca_sim(n,m,d,repprop,L_noise,X_noise,W_noise,nsim,seed)
+function estW_pca_sim(n,m,d,repprop,L_noise,X_noise,W_noise,nsim)
     %X_bysim = cell(nsim,1);
     %X_input_bysim = cell(nsim,1);
     %W_bysim = cell(nsim,1);
@@ -6,9 +6,9 @@ function estW_pca_sim(n,m,d,repprop,L_noise,X_noise,W_noise,nsim,seed)
     Wl_pca_bysim = cell(nsim,1);
     L_pca_bysim = cell(nsim,1);
     b = m/d;
-    % Random seed.
-    rng(seed);
     for l = 1:nsim
+        %Set the seed to be iterations number at the beginning of each iteration.
+        rng(l);
         X = zeros(n,m);
         W = zeros(m,d);
         % Simulate the dataset
@@ -33,7 +33,7 @@ function estW_pca_sim(n,m,d,repprop,L_noise,X_noise,W_noise,nsim,seed)
         %S = corr(L);
         L_input = L + L_noise .* randn(n,d);
         S_input = corr(L_input);
-        X_input = X + X_noise .* rand(n,m);
+        X_input = X + X_noise .* randn(n,m);
 
     [Wl_pca,L_pca] = estW_pca(X_input,S_input,W_init);
 
@@ -47,7 +47,7 @@ function estW_pca_sim(n,m,d,repprop,L_noise,X_noise,W_noise,nsim,seed)
     disp('Results saved.');
     end
 
-    fname = sprintf('results/estWpca/simres_estWpca_n%d_m%d_d%d_repprop%.2f_Lnoise%.2f_Xnoise%0.2f_Wnoise%0.2f_nsim%d_seed%d.mat', n, m, d, repprop, L_noise, X_noise, W_noise, nsim, seed);
+    fname = sprintf('results/estWpca/simres_estWpca_n%d_m%d_d%d_repprop%.2f_Lnoise%.2f_Xnoise%0.2f_Wnoise%0.2f_nsim%d.mat', n, m, d, repprop, L_noise, X_noise, W_noise, nsim);
     save(fname,'Wl_pca_bysim','L_pca_bysim','-v7.3');
     disp('Success, All Results saved!');
 
