@@ -2,6 +2,7 @@
 function [L_pca] = estL_pca(X_train,Wo)
 
     [n,~] = size(X_train);
+    X_train = normalize(X_train);
     d = size(Wo,2);
     
 % Initilization of W.    

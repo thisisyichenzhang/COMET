@@ -2,6 +2,8 @@
 function [W] = estW(X,S,Wo)
     K = 1; % Number of optimization iterations
 %    [n,m] = size(X);
+    % Normalization of X
+    X = normalize(X);
     d = size(S,1);
 %   W = rand(m,d);
 %   W = randn(m,d);

@@ -26,6 +26,7 @@ function [W,L_pca] = estW_pca(X_train,S_input,Wo)
         for i=1:d
             disp(i);
             options = optimoptions('fmincon','Display','iter','MaxFunEvals',1e5);
+            
             ind = W(:,i)~=0; 
             fun=@(w)(-1*(sum(([S(i,1:i-1) S(i,i+1:end)].*corr(X_train(:,ind)*w,[L_pca(:,1:i-1) L_pca(:,i+1:end)]))))/d);
             W(ind,i) = fmincon(fun,W(ind,i),[],[],[],[],[],[],[],options);

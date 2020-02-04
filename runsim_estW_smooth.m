@@ -1,5 +1,5 @@
 %% Run simulation, generate data, Cross-validation, perform regularization method and original method
-function cvsim(n,m,d,repprop,L_noise,X_noise,W_noise,nsim,nfolds)
+function runsim_estW_smooth(n,m,d,repprop,L_noise,X_noise,W_noise,nsim,nfolds)
     alphas = [0:0.01:0.1,0.2,0.5,0.8,1];
     %X_bysim = cell(nsim,1);
     %X_input_bysim = cell(nsim,1);
@@ -8,37 +8,15 @@ function cvsim(n,m,d,repprop,L_noise,X_noise,W_noise,nsim,nfolds)
     %Wl_bysim = cell(nsim,1);
     Wl_cv_bysim = cell(nsim,1);
     best_alpha_bysim = zeros(nsim,1);
+    W_maskmat = load('W_mask.mat');
+    W_mask = W_maskmat.W_mask;
+    W_mask_active = W_mask(sum(W_mask~=0,2)~=0,sum(W_mask~=0,1)~=0);
     %criterion_cv_onfulldata_bysim = zeros(nsim,1);
     %criterion_old_onfulldata_bysim = zeros(nsim,1);
-    b = m/d;
     for l = 1:nsim
         %Set the seed to be iterations number at the beginning of each iteration.
         rng(l);
-        X = zeros(n,m);
-        W = zeros(m,d);
-        % Simulate the dataset
-        for i = 1:d
-        ind = (1+(i-1)*b):(i*b);
-        if rand > repprop || i==1
-            sig = randn(n,1);
-        end
-        X(:,ind) = sig*ones(1,b) + 0.1*randn(n,b);
-        W(ind,i) = rand(b,1);
-        end
-
-        % change W_init here
-        %   W_init = rand(m,d);
-        %   W_init = W+randn(m,d);
-        % !!!WORONG!!! !!LACK BRACKET!! : W_init = double(W + (rand(m,d)>(1-W_noise))~=0);
-        W_init = double((W + (rand(m,d)>(1-W_noise)))~=0);
-        %   W_init = double(W~=0);
-        %   W_init = double(W>0.25);
-
-        L = X*W;
-        %S = corr(L);
-        L_input = L + L_noise .* randn(n,d);
-        S_input = corr(L_input);
-        X_input = X + X_noise .* randn(n,m);
+        [~,~,~,W_init,~,X_input,S_input,~]=simdata(n,m,d,repprop,L_noise,X_noise,W_noise,W_mask_active);
         
         % Normalization of X
         X_input = normalize(X_input);
